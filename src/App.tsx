@@ -1,16 +1,33 @@
-import React, { useState } from "react";
-import "./App.css";
-import { Flight, Sort, SortBy } from "./types";
+import React, { useCallback, useEffect, useState } from "react";
+import "./App.scss";
+import { Flight, SortDirection, SortBy } from "./types";
 import { getFlights } from "./api";
+import FlightsTable from "./FlightsTable";
 
 function App() {
+  const [query, setQuery] = useState<string>("san");
   const [flights, setFlights] = useState<ReadonlyArray<Flight>>();
-  const [sort, setSort] = useState<Sort>("asc");
+  const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [sortBy, setSortBy] = useState<SortBy>("date");
 
-  const onChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFlights(await getFlights(event.target.value.trim(), { limit: 5 }));
-  };
+  const onChange = useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      setFlights(await getFlights(event.target.value.trim(), { limit: 5 }));
+    },
+    [],
+  );
+
+  const sort = useCallback(
+    (sortBy: SortBy, sortDirection: SortDirection) => {
+      setSortBy(sortBy);
+      setSortDirection(sortDirection);
+    },
+    [sortBy, sortDirection],
+  );
+
+  useEffect(() => {
+    getFlights(query, { limit: 5, sortDirection, sortBy }).then(setFlights);
+  }, [query, sortBy, sortDirection]);
 
   return (
     <div className="App">
@@ -20,14 +37,14 @@ function App() {
       </label>
 
       {flights ? (
-        flights?.map((flight) => (
-          <div key={flight.flightIdentifier}>
-            <h2>{flight.flightNumber}</h2>
-            <p>{flight.airport}</p>
-          </div>
-        ))
+        <FlightsTable
+          flights={flights}
+          sortBy={sortBy}
+          sortDirection={sortDirection}
+          sort={sort}
+        />
       ) : (
-        <h2>Please type at least 3 characters in the input field</h2>
+        <h2>Please type at least 3 characters in the search field</h2>
       )}
     </div>
   );

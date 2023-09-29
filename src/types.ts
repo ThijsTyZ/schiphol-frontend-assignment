@@ -9,5 +9,5 @@ export type Flight = {
   score: string;
 };
 
-export type Sort = "asc" | "desc";
-export type SortBy = keyof Flight;
+export type SortDirection = "asc" | "desc";
+export type SortBy = "date" | "airport" | "flightNumber";

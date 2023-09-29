@@ -1,8 +1,12 @@
-import { Flight } from "./types";
+import { Flight, SortDirection } from "./types";
 
 export async function getFlights(
   query: string,
-  options?: { limit?: number; sort?: "asc" | "desc"; sortBy?: keyof Flight },
+  options?: {
+    limit?: number;
+    sortDirection?: SortDirection;
+    sortBy?: keyof Flight;
+  },
 ): Promise<ReadonlyArray<Flight> | undefined> {
   try {
     if (query.length >= 3) {
@@ -14,6 +18,29 @@ export async function getFlights(
         .filter((flight) =>
           flight.airport.toLowerCase().includes(query.toLowerCase()),
         )
+        .sort((flight1, flight2) => {
+          switch (options?.sortBy) {
+            case undefined:
+              return 0;
+            case "date": {
+              return (
+                new Date(`${flight1.date} ${flight1.expectedTime}`).getTime() -
+                new Date(`${flight2.date} ${flight2.expectedTime}`).getTime()
+              );
+            }
+            case "airport": {
+              return flight1.airport.localeCompare(flight2.airport);
+            }
+            case "flightNumber": {
+              return flight1.airport.localeCompare(flight2.airport);
+            }
+            default: {
+              throw new Error(`Invalid sortBy option: ${options?.sortBy}`);
+            }
+          }
+        })
+        .sort(() => (options?.sortDirection === "desc" ? -1 : 1))
+
         .slice(0, options?.limit);
     }
   } catch (error) {
