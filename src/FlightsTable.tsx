@@ -11,7 +11,7 @@ export type FlightsTableProps = {
 function FlightsTable({ flights, ...rest }: FlightsTableProps) {
   return (
     <table className="flights">
-      <caption>Flight results</caption>
+      <caption>Flight search results</caption>
       <thead>
         <tr>
           <TableHeader label="Date" field="date" {...rest} />
