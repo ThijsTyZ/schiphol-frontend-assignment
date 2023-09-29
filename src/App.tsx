@@ -14,13 +14,10 @@ function App() {
     setQuery(event.target.value);
   }, []);
 
-  const sort = useCallback(
-    (sortBy: SortBy, sortDirection: SortDirection) => {
-      setSortBy(sortBy);
-      setSortDirection(sortDirection);
-    },
-    [sortBy, sortDirection],
-  );
+  const sort = useCallback((sortBy: SortBy, sortDirection: SortDirection) => {
+    setSortBy(sortBy);
+    setSortDirection(sortDirection);
+  }, []);
 
   useEffect(() => {
     if (query.length >= 3) {
