@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { Flight, SortBy, SortDirection } from "./types";
 
 export type FlightsTableProps = {
