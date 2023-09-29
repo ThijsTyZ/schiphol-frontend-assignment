@@ -5,17 +5,14 @@ import { getFlights } from "./api";
 import FlightsTable from "./FlightsTable";
 
 function App() {
-  const [query, setQuery] = useState<string>("san");
+  const [query, setQuery] = useState<string>("");
   const [flights, setFlights] = useState<ReadonlyArray<Flight>>();
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [sortBy, setSortBy] = useState<SortBy>("date");
 
-  const onChange = useCallback(
-    async (event: React.ChangeEvent<HTMLInputElement>) => {
-      setFlights(await getFlights(event.target.value.trim(), { limit: 5 }));
-    },
-    [],
-  );
+  const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  }, []);
 
   const sort = useCallback(
     (sortBy: SortBy, sortDirection: SortDirection) => {
@@ -26,7 +23,11 @@ function App() {
   );
 
   useEffect(() => {
-    getFlights(query, { limit: 5, sortDirection, sortBy }).then(setFlights);
+    if (query.length >= 3) {
+      getFlights(query, { limit: 5, sortDirection, sortBy }).then(setFlights);
+    } else {
+      setFlights(undefined);
+    }
   }, [query, sortBy, sortDirection]);
 
   return (
@@ -37,12 +38,16 @@ function App() {
       </label>
 
       {flights ? (
-        <FlightsTable
-          flights={flights}
-          sortBy={sortBy}
-          sortDirection={sortDirection}
-          sort={sort}
-        />
+        flights.length > 0 ? (
+          <FlightsTable
+            flights={flights}
+            sortBy={sortBy}
+            sortDirection={sortDirection}
+            sort={sort}
+          />
+        ) : (
+          <h2>No flights are found for "{query}"</h2>
+        )
       ) : (
         <h2>Please type at least 3 characters in the search field</h2>
       )}
