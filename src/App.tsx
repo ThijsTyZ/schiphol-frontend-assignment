@@ -1,30 +1,15 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import { Flight } from "./types";
+import { Flight, Sort, SortBy } from "./types";
+import { getFlights } from "./api";
 
 function App() {
   const [flights, setFlights] = useState<ReadonlyArray<Flight>>();
+  const [sort, setSort] = useState<Sort>("asc");
+  const [sortBy, setSortBy] = useState<SortBy>("date");
 
   const onChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const query = event.target.value.trim();
-
-    try {
-      if (query.length >= 3) {
-        const results = (await (await fetch("flights.json")).json())
-          .flights as ReadonlyArray<Flight>;
-
-        setFlights(
-          results.filter((flight) =>
-            flight.airport.toLowerCase().includes(query.toLowerCase()),
-          ),
-        );
-      } else {
-        setFlights(undefined);
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    setFlights(await getFlights(event.target.value.trim(), { limit: 5 }));
   };
 
   return (

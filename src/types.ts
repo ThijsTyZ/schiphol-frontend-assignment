@@ -8,3 +8,6 @@ export type Flight = {
   url: string;
   score: string;
 };
+
+export type Sort = "asc" | "desc";
+export type SortBy = keyof Flight;
