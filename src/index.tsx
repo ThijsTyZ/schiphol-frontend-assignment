@@ -4,7 +4,7 @@ import "./index.css";
 import "./colors.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import ColorsTable from "./ColorsTable";
+// import ColorsTable from "./ColorsTable";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -12,7 +12,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App apiUrl="flights.json" />
+    {/* Table with all colors, useful during development * /}
     <ColorsTable />
+    {/**/}
   </React.StrictMode>,
 );
 
