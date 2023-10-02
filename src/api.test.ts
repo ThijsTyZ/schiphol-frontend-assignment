@@ -1,4 +1,3 @@
-import React from "react";
 import { getFlights } from "./api";
 import json from "../public/flights.json";
 
