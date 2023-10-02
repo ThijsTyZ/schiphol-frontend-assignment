@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import { Flight, SortBy, SortDirection } from "./types";
+import "./FlightsTable.scss";
 
 export type FlightsTableProps = {
   flights: ReadonlyArray<Flight>;
@@ -10,7 +11,7 @@ export type FlightsTableProps = {
 
 function FlightsTable({ flights, ...rest }: FlightsTableProps) {
   return (
-    <table className="flights">
+    <table className="FlightsTable">
       <caption>Flight search results</caption>
       <thead>
         <tr>
