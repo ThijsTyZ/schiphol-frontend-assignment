@@ -4,7 +4,11 @@ import { Flight, SortDirection, SortBy } from "./types";
 import { getFlights } from "./api";
 import FlightsTable from "./FlightsTable";
 
-function App() {
+type AppProps = {
+  apiUrl: string;
+};
+
+function App({ apiUrl }: AppProps) {
   const [query, setQuery] = useState<string>("");
   const [flights, setFlights] = useState<ReadonlyArray<Flight>>();
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
@@ -21,7 +25,7 @@ function App() {
 
   useEffect(() => {
     if (query.length >= 3) {
-      getFlights("flights.json", query, {
+      getFlights(apiUrl, query, {
         limit: 5,
         sortDirection,
         sortBy,
@@ -29,7 +33,7 @@ function App() {
     } else {
       setFlights(undefined);
     }
-  }, [query, sortBy, sortDirection]);
+  }, [apiUrl, query, sortBy, sortDirection]);
 
   return (
     <div className="App">
