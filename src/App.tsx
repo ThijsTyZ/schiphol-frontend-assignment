@@ -21,7 +21,11 @@ function App() {
 
   useEffect(() => {
     if (query.length >= 3) {
-      getFlights(query, { limit: 5, sortDirection, sortBy }).then(setFlights);
+      getFlights("flights.json", query, {
+        limit: 5,
+        sortDirection,
+        sortBy,
+      }).then(setFlights);
     } else {
       setFlights(undefined);
     }

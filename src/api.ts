@@ -1,6 +1,7 @@
 import { Flight, SortDirection } from "./types";
 
 export async function getFlights(
+  url: string,
   query: string,
   options?: {
     limit?: number;
@@ -10,7 +11,7 @@ export async function getFlights(
 ): Promise<ReadonlyArray<Flight> | undefined> {
   try {
     // TODO: as the filtering and sorting is done in the client side, the response can be cached so we only lead it once.
-    const results = (await (await fetch("flights.json")).json())
+    const results = (await (await fetch(url)).json())
       .flights as ReadonlyArray<Flight>;
 
     return results
