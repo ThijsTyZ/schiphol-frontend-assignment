@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/schiphol-frontend-assignment/static/css/main.e5fa687e.css",
+    "main.js": "/schiphol-frontend-assignment/static/js/main.4e341808.js",
+    "static/js/787.36e7338e.chunk.js": "/schiphol-frontend-assignment/static/js/787.36e7338e.chunk.js",
+    "index.html": "/schiphol-frontend-assignment/index.html",
+    "main.e5fa687e.css.map": "/schiphol-frontend-assignment/static/css/main.e5fa687e.css.map",
+    "main.4e341808.js.map": "/schiphol-frontend-assignment/static/js/main.4e341808.js.map",
+    "787.36e7338e.chunk.js.map": "/schiphol-frontend-assignment/static/js/787.36e7338e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e5fa687e.css",
+    "static/js/main.4e341808.js"
+  ]
+}
