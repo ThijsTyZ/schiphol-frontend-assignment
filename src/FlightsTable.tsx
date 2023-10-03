@@ -6,7 +6,7 @@ export type FlightsTableProps = {
   flights: ReadonlyArray<Flight>;
   sortBy: SortBy;
   sortDirection: SortDirection;
-  sort: (sortBy: SortBy, sortDirection: SortDirection) => void;
+  onHeaderClick: (field: SortBy) => void;
 };
 
 function FlightsTable({ flights, ...rest }: FlightsTableProps) {
@@ -37,7 +37,7 @@ function FlightsTable({ flights, ...rest }: FlightsTableProps) {
 
 type TableHeaderProps = {
   label: string;
-  field?: SortBy;
+  field: SortBy;
 } & Omit<FlightsTableProps, "flights">;
 
 function TableHeader({
@@ -45,22 +45,14 @@ function TableHeader({
   field,
   sortBy,
   sortDirection,
-  sort,
+  onHeaderClick,
 }: TableHeaderProps) {
   const onClick = useCallback(() => {
-    if (field)
-      sort(
-        field,
-        field === sortBy
-          ? sortDirection === "asc"
-            ? "desc"
-            : "asc"
-          : sortDirection,
-      );
-  }, [field, sortBy, sortDirection, sort]);
+    onHeaderClick(field);
+  }, [field, onHeaderClick]);
 
   return (
-    <th scope="col" onClick={field && onClick}>
+    <th scope="col" onClick={onClick}>
       {label}
       {field && field === sortBy && (sortDirection === "asc" ? <>↓</> : <>↑</>)}
     </th>
