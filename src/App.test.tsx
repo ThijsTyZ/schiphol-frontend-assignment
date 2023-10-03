@@ -32,3 +32,21 @@ test("App should renders flight results", async () => {
     expect((await screen.findAllByText("Sandefjord")).length).toEqual(1);
   });
 });
+
+test("App should renders no results message", async () => {
+  act(() => {
+    render(<App apiUrl={apiUrl} />);
+  });
+
+  const input = screen.getByPlaceholderText("query");
+
+  act(() => {
+    userEvent.type(input, "this does not exist");
+  });
+
+  await waitFor(async () => {
+    expect(
+      await screen.findByText('No flights are found for "this does not exist"'),
+    ).toBeInTheDocument();
+  });
+});
