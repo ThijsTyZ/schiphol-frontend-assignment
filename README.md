@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+This project was created as a test assignment for Schiphol. I made this in less than 4 hours. It was built using React (with create-react-app), but I didn't use any other external libraries.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Because I strictly adhered to the time limit and technical restrictions, I had to make concessions. As a result, the UI implementation is minimal.
 
 ## Available Scripts
 
@@ -29,18 +29,37 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+# Assignment
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Please create a page that contains an input field.
+When the user enters _at least_ three characters into this input field,
+you should display all flight information from the `flights.json` file where the destination airport matches the entered input.
+Limit the search result to a maximum of 5 flights.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Please implement it using React. Try to keep it simple.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+We think 4 hours should be enough to spend on this assignment.
+Please don't spend more than that unless you're having fun and want to show off :)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Requirements:
 
-## Learn More
+- Use React. Create your app with React but try to limit the use of third party UI libraries.
+- Use Typescript. Make sure your app is typed correctly.
+- Make it look nice. Make use of the provided colors. How you want to implement them is entirely your choice ;)
+- Your application should treat the contents of `flights.json` as the output of an API endpoint.
+  It should load this asynchronously using XHR or Fetch API and should not require a page reload when the user changes their input.
+- Make sure the results are sortable. The filtered flight data should be sortable on date and (expected) time. Initial expected sorting is early to late.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Submission:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Create a clone of this repository locally.
+  Then push it to **your GitHub account** and continue working from there.
+  Once you have finished, please send us the URL of the repository you have created.
+
+### Some things to consider:
+
+- We like DRY and KISS
+- We like tested code
+- We like readable code
+- We like using the latest features of ES6 where applicable
+- Last but not least, have fun!
