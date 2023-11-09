@@ -1,6 +1,6 @@
 export type Flight = {
-  flightIdentifier: string;
-  flightNumber: string;
+  flightIdentifier: FlightIdentifier;
+  flightNumber: FlightNumber;
   airport: string;
   date: string;
   expectedTime: string;
@@ -11,3 +11,8 @@ export type Flight = {
 
 export type SortDirection = "asc" | "desc";
 export type SortBy = "date" | "airport" | "flightNumber";
+
+export type FlightIdentifier = TypedString<"FlightIdentifier">;
+export type FlightNumber = TypedString<"FlightNumber">;
+
+type TypedString<T extends string> = string & { __type: T };
