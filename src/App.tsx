@@ -18,11 +18,6 @@ function App({ apiUrl }: AppProps) {
     setQuery(event.target.value);
   }, []);
 
-  const sort = useCallback((sortBy: SortBy, sortDirection: SortDirection) => {
-    setSortBy(sortBy);
-    setSortDirection(sortDirection);
-  }, []);
-
   useEffect(() => {
     if (query.length >= 3) {
       getFlights(apiUrl, query, {
@@ -34,6 +29,17 @@ function App({ apiUrl }: AppProps) {
       setFlights(undefined);
     }
   }, [apiUrl, query, sortBy, sortDirection]);
+
+  const onFlightsTableHeaderClick = useCallback(
+    (field: SortBy) => {
+      if (field === sortBy) {
+        setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+      } else {
+        setSortBy(field);
+      }
+    },
+    [sortBy, sortDirection],
+  );
 
   return (
     <div className="App">
@@ -48,7 +54,7 @@ function App({ apiUrl }: AppProps) {
             flights={flights}
             sortBy={sortBy}
             sortDirection={sortDirection}
-            sort={sort}
+            onHeaderClick={onFlightsTableHeaderClick}
           />
         ) : (
           <h2>No flights are found for "{query}"</h2>
